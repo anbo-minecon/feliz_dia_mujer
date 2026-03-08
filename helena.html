@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Elena ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --rose:       #C0546A;
+  --rose-soft:  #D4849A;
+  --rose-pale:  #F5E6EA;
+  --rose-blush: #FDF0F2;
+  --mauve:      #9B6B7A;
+  --mauve-deep: #6B3D4D;
+  --cream:      #FDF8F5;
+  --ivory:      #FAF4EE;
+  --gold:       #C9A84C;
+  --gold-soft:  #E8D4A0;
+  --text:       #2C1A1E;
+  --text-mid:   #6B4A52;
+  --text-soft:  #A8849A;
+  --line:       rgba(192,84,106,0.15);
+  --shadow:     rgba(107,61,77,0.12);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── GRAIN ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ════════════════════════════════════
+   FLOATING PETALS
+════════════════════════════════════ */
+#petals-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+.petal {
+  position: absolute;
+  top: -30px;
+  font-size: 13px;
+  opacity: 0;
+  animation: petalFall linear infinite;
+}
+@keyframes petalFall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+  8%   { opacity: 0.55; }
+  88%  { opacity: 0.3; }
+  100% { transform: translateY(105vh) rotate(480deg) translateX(40px); opacity: 0; }
+}
+
+/* ════════════════════════════════════
+   HERO
+════════════════════════════════════ */
+.hero {
+  height: 100vh;
+  min-height: 600px;
+  background: linear-gradient(160deg, var(--mauve-deep) 0%, #8B2D45 55%, #C0546A 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Bokeh circles */
+.bokeh {
+  position: absolute;
+  border-radius: 50%;
+  animation: bokehFloat ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes bokehFloat {
+  0%,100% { transform: translate(0,0) scale(1); opacity: var(--op); }
+  33%     { transform: translate(12px,-18px) scale(1.06); }
+  66%     { transform: translate(-8px,10px) scale(0.95); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.hero-pre {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.hero-pre::before,
+.hero-pre::after {
+  content: '';
+  width: 32px; height: 1px;
+  background: rgba(255,255,255,0.25);
+}
+
+.hero-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(88px, 22vw, 180px);
+  color: #fff;
+  line-height: 0.88;
+  margin-bottom: 24px;
+  text-shadow:
+    0 2px 40px rgba(0,0,0,0.2),
+    0 0 80px rgba(255,200,200,0.15);
+  animation: nameFadeIn 1.6s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes nameFadeIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(16px, 2.8vw, 22px);
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1px;
+  margin-bottom: 56px;
+  animation: nameFadeIn 1.6s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.hero-hearts {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 52px;
+  animation: nameFadeIn 1.6s 0.5s both;
+}
+.hero-hearts span {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  animation: heartbeat 2.4s ease-in-out infinite;
+}
+.hero-hearts span:nth-child(2) { animation-delay: 0.4s; font-size: 14px; color: rgba(255,255,255,0.6); }
+.hero-hearts span:nth-child(3) { animation-delay: 0.8s; }
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.4); }
+}
+
+.hero-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.35);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s;
+  animation: nameFadeIn 2s 0.8s both;
+}
+.hero-scroll:hover { color: rgba(255,255,255,0.7); }
+.scroll-needle {
+  width: 1px; height: 56px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+  animation: needlePulse 2.5s ease-in-out infinite;
+}
+@keyframes needlePulse {
+  0%,100% { transform: scaleY(1); opacity: 0.5; }
+  50%     { transform: scaleY(0.5); opacity: 1; }
+}
+
+/* ════════════════════════════════════
+   SPINE
+════════════════════════════════════ */
+.spine-wrap {
+  position: relative;
+  background: var(--cream);
+}
+.spine-wrap::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%, var(--line) 5%,
+    var(--line) 95%, transparent 100%);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ════════════════════════════════════
+   ROWS
+════════════════════════════════════ */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 92vh;
+  position: relative;
+}
+
+@media (max-width: 700px) {
+  .row { grid-template-columns: 1fr; min-height: auto; }
+  .spine-wrap::before { display: none; }
+  .cell-photo { min-height: 320px; order: 1 !important; }
+  .cell-text  { order: 2 !important; padding: 44px 28px 52px; }
+  .text-inner { max-width: 100%; }
+}
+
+/* ── Photo cell ── */
+.cell-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-bg {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.photo-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 10s ease;
+}
+.row:hover .photo-bg img {
+  transform: scale(1.05);
+}
+
+/* placeholder */
+.photo-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px;
+  background: linear-gradient(145deg, #EDD5DC, #F5E0E6);
+}
+.ph-icon  { font-size: 46px; opacity: 0.5; }
+.ph-label { font-size: 12px; color: var(--mauve); font-weight: 500; letter-spacing: 1px; }
+.ph-hint  { font-size: 10px; color: var(--rose-soft); opacity: 0.8; }
+
+/* scrim */
+.photo-scrim {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.row-normal  .photo-scrim { background: linear-gradient(to right, rgba(0,0,0,0.08), transparent 80%); }
+.row-reverse .photo-scrim { background: linear-gradient(to left, rgba(0,0,0,0.08), transparent 80%); }
+
+/* number badge */
+.photo-num {
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(255,255,255,0.75);
+  background: rgba(107,61,77,0.35);
+  backdrop-filter: blur(8px);
+  padding: 5px 14px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+}
+.row-normal  .photo-num { bottom: 22px; right: 22px; }
+.row-reverse .photo-num { bottom: 22px; left: 22px; }
+
+/* glow edge */
+.photo-glow {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  animation: glowPulse 5s ease-in-out infinite;
+}
+.row-normal  .photo-glow { background: radial-gradient(ellipse at right center, rgba(192,84,106,0.1), transparent 65%); }
+.row-reverse .photo-glow { background: radial-gradient(ellipse at left center, rgba(192,84,106,0.1), transparent 65%); }
+@keyframes glowPulse {
+  0%,100% { opacity: 0.6; }
+  50%     { opacity: 1; }
+}
+
+/* ── Text cell ── */
+.cell-text {
+  display: flex;
+  align-items: center;
+  padding: clamp(44px, 7vw, 96px) clamp(36px, 7vw, 88px);
+  position: relative;
+  background: var(--cream);
+}
+.row:nth-child(even) .cell-text { background: var(--ivory); }
+
+.text-inner {
+  max-width: 420px;
+  width: 100%;
+}
+
+.row-normal  .cell-photo { order: 1; }
+.row-normal  .cell-text  { order: 2; }
+.row-reverse .cell-photo { order: 2; }
+.row-reverse .cell-text  { order: 1; }
+
+/* text elements */
+.text-chapter {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.chapter-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--rose-soft);
+  letter-spacing: 1px;
+}
+.chapter-line {
+  flex: 1; max-width: 40px;
+  height: 1px;
+  background: linear-gradient(to right, var(--rose-soft), var(--gold-soft));
+}
+
+.text-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(17px, 2.4vw, 23px);
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 30px;
+}
+.text-quote em {
+  color: var(--rose);
+  font-style: normal;
+}
+
+.text-deco {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  color: var(--rose-soft);
+  letter-spacing: 2px;
+}
+.deco-dash {
+  width: 28px; height: 1px;
+  background: linear-gradient(to right, var(--rose-soft), transparent);
+}
+
+/* names block */
+.text-names {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.names-from {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+}
+.names-script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 34px;
+  color: var(--rose);
+  line-height: 1.4;
+  margin-bottom: 14px;
+  text-shadow: 0 0 20px rgba(192,84,106,0.15);
+}
+.names-wish {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════
+   CLOSING
+════════════════════════════════════ */
+.closing {
+  min-height: 72vh;
+  background: linear-gradient(160deg, var(--mauve-deep) 0%, #8B2D45 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(72px, 12vw, 140px) 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.closing-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  animation: ringExpand ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes ringExpand {
+  0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.4; }
+  50%     { transform: translate(-50%,-50%) scale(1.05); opacity: 0.8; }
+}
+
+.closing-sym {
+  font-size: 28px;
+  margin-bottom: 36px;
+  animation: heartbeat 2s ease-in-out infinite;
+  position: relative; z-index: 10;
+}
+
+.closing-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(19px, 3.5vw, 34px);
+  color: rgba(255,255,255,0.92);
+  max-width: 660px;
+  line-height: 1.75;
+  margin-bottom: 52px;
+  position: relative;
+  z-index: 10;
+  padding: 0 20px;
+}
+
+.closing-quote::before,
+.closing-quote::after {
+  font-family: 'Playfair Display', serif;
+  font-size: 8em;
+  line-height: 0;
+  color: rgba(255,255,255,0.05);
+  position: absolute;
+}
+.closing-quote::before { content: '"'; top: 0.3em; left: -0.1em; }
+.closing-quote::after  { content: '"'; bottom: -0.25em; right: -0.05em; }
+
+.closing-hearts {
+  display: flex; gap: 14px;
+  justify-content: center;
+  margin-bottom: 44px;
+  position: relative; z-index: 10;
+}
+.closing-hearts span {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  animation: heartbeat 2.4s ease-in-out infinite;
+}
+.closing-hearts span:nth-child(2) {
+  font-size: 18px;
+  color: rgba(255,255,255,0.55);
+  animation-delay: 0.5s;
+}
+.closing-hearts span:nth-child(3) { animation-delay: 1s; }
+
+.btn-close {
+  position: relative; z-index: 10;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 2px;
+  padding: 16px 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.btn-close::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.07);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.btn-close:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+.btn-close:hover::before { transform: scaleX(1); }
+.btn-close.done { border-color: #fff; color: #fff; background: rgba(255,255,255,0.08); }
+
+/* ════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════ */
+.rev {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s cubic-bezier(0.16,1,0.3,1),
+              transform 1s cubic-bezier(0.16,1,0.3,1);
+}
+.rev-l {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 1s cubic-bezier(0.16,1,0.3,1),
+              transform 1s cubic-bezier(0.16,1,0.3,1);
+}
+.rev-r {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 1s cubic-bezier(0.16,1,0.3,1),
+              transform 1s cubic-bezier(0.16,1,0.3,1);
+}
+.in { opacity:1 !important; transform: translate(0,0) !important; }
+
+</style>
+</head>
+<body>
+
+<!-- PETALS -->
+<div id="petals-canvas"></div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <!-- bokeh dots -->
+  <div class="bokeh" style="width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.05),transparent 70%);top:10%;left:15%;--op:0.6;animation-duration:7s;"></div>
+  <div class="bokeh" style="width:120px;height:120px;background:radial-gradient(circle,rgba(255,255,255,0.06),transparent 70%);top:60%;right:12%;--op:0.5;animation-duration:9s;animation-delay:1s;"></div>
+  <div class="bokeh" style="width:240px;height:240px;background:radial-gradient(circle,rgba(255,255,255,0.03),transparent 70%);bottom:10%;left:40%;--op:0.4;animation-duration:11s;animation-delay:2s;"></div>
+
+  <div class="hero-content">
+    <div class="hero-pre">para ella</div>
+    <div class="hero-name">Elena</div>
+    <p class="hero-sub">un mensaje del corazón</p>
+    <div class="hero-hearts">
+      <span>♡</span>
+      <span>❤️</span>
+      <span>♡</span>
+    </div>
+    <div class="hero-scroll" onclick="document.querySelector('.spine-wrap').scrollIntoView({behavior:'smooth'})">
+      <div class="scroll-needle"></div>
+      <span>leer</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STORY ═══════════════ -->
+<div class="spine-wrap">
+
+  <!-- ── 1 Foto izq / Texto der ── -->
+  <div class="row row-normal">
+    <div class="cell-photo rev-l">
+      <div class="photo-bg">
+        <img src="foto_1.jpeg" alt="Elena">
+      </div>
+      <div class="photo-scrim"></div>
+      <div class="photo-glow"></div>
+      <div class="photo-num">I · cinco</div>
+    </div>
+    <div class="cell-text">
+      <div class="text-inner rev-r" style="transition-delay:0.15s">
+        <div class="text-chapter">
+          <span class="chapter-num">01</span>
+          <span class="chapter-line"></span>
+        </div>
+        <p class="text-quote">
+          Hay personas que <em>iluminan los lugares</em> a donde llegan, y Elena es una de ellas. Su alegría, su forma de ser y su energía hacen que cualquier momento se vuelva especial.
+        </p>
+        <div class="text-deco"><div class="deco-dash"></div>♡</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2 Texto izq / Foto der ── -->
+  <div class="row row-reverse">
+    <div class="cell-text">
+      <div class="text-inner rev-l" style="transition-delay:0.15s">
+        <div class="text-chapter">
+          <span class="chapter-num">02</span>
+          <span class="chapter-line"></span>
+        </div>
+        <p class="text-quote">
+          Su sonrisa, su forma <em>amable de tratar</em> a las personas y su manera tan bonita de ver la vida hacen que quienes la rodean se sientan muy afortunados de conocerla.
+        </p>
+        <div class="text-deco"><div class="deco-dash"></div>♡</div>
+      </div>
+    </div>
+    <div class="cell-photo rev-r">
+      <div class="photo-bg">
+        <img src="foto_2.jpeg" alt="Elena">
+      </div>
+      <div class="photo-scrim"></div>
+      <div class="photo-glow"></div>
+      <div class="photo-num">II · cinco</div>
+    </div>
+  </div>
+
+  <!-- ── 3 Foto izq / Texto der ── -->
+  <div class="row row-normal">
+    <div class="cell-photo rev-l">
+      <div class="photo-bg">
+        <img src="foto_3.jpeg" alt="Elena">
+      </div>
+      <div class="photo-scrim"></div>
+      <div class="photo-glow"></div>
+      <div class="photo-num">III · cinco</div>
+    </div>
+    <div class="cell-text">
+      <div class="text-inner rev-r" style="transition-delay:0.15s">
+        <div class="text-chapter">
+          <span class="chapter-num">03</span>
+          <span class="chapter-line"></span>
+        </div>
+        <p class="text-quote">
+          Porque las personas especiales no solo dejan recuerdos… también dejan <em>momentos felices</em> que se guardan para siempre.
+        </p>
+        <div class="text-deco"><div class="deco-dash"></div>♡</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4 Texto izq / Foto der (perrito) ── -->
+  <div class="row row-reverse">
+    <div class="cell-text">
+      <div class="text-inner rev-l" style="transition-delay:0.15s">
+        <div class="text-chapter">
+          <span class="chapter-num">04</span>
+          <span class="chapter-line"></span>
+        </div>
+        <p class="text-quote">
+          Y claro, también están esos compañeros fieles que llenan los días de alegría, juegos y cariño. Porque los momentos más bonitos muchas veces vienen <em>acompañados de una patita amiga.</em>
+        </p>
+        <div class="text-deco"><div class="deco-dash"></div>🐾</div>
+      </div>
+    </div>
+    <div class="cell-photo rev-r">
+      <div class="photo-bg">
+        <img src="foto_perro.jpeg" alt="perrito">
+      </div>
+      <div class="photo-scrim"></div>
+      <div class="photo-glow"></div>
+      <div class="photo-num">IV · cinco</div>
+    </div>
+  </div>
+
+  <!-- ── 5 Foto izq / Texto der (FINAL) ── -->
+  <div class="row row-normal">
+    <div class="cell-photo rev-l">
+      <div class="photo-bg">
+        <img src="foto_5.jpeg" alt="Elena">
+      </div>
+      <div class="photo-scrim"></div>
+      <div class="photo-glow"></div>
+      <div class="photo-num">V · cinco</div>
+    </div>
+    <div class="cell-text">
+      <div class="text-inner rev-r" style="transition-delay:0.15s">
+        <div class="text-chapter">
+          <span class="chapter-num">05</span>
+          <span class="chapter-line"></span>
+        </div>
+        <p class="text-quote">
+          Hoy solo queríamos recordarte lo <em>increíble que eres</em> y lo especial que resultas para las personas que te quieren.
+        </p>
+        <div class="text-deco" style="margin-bottom:0"><div class="deco-dash"></div>♡</div>
+
+        <div class="text-names">
+          <div class="names-from">con todo nuestro amor</div>
+          <div class="names-script">Kevin &amp; Rey</div>
+          <p class="names-wish">
+            Te deseamos un feliz día y queremos que sepas que te queremos por siempre. ❤️
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /spine-wrap -->
+
+<!-- ═══════════════ CLOSING ═══════════════ -->
+<section class="closing">
+  <!-- rings -->
+  <div class="closing-ring" style="width:300px;height:300px;top:50%;left:50%;animation-duration:8s;"></div>
+  <div class="closing-ring" style="width:520px;height:520px;top:50%;left:50%;animation-duration:10s;animation-delay:1s;"></div>
+  <div class="closing-ring" style="width:780px;height:780px;top:50%;left:50%;animation-duration:13s;animation-delay:2s;"></div>
+
+  <div class="closing-sym rev">❤️</div>
+
+  <p class="closing-quote rev" style="transition-delay:0.2s">
+    Las personas especiales hacen que los momentos simples se conviertan en recuerdos inolvidables.
+  </p>
+
+  <div class="closing-hearts rev" style="transition-delay:0.4s">
+    <span>♡</span><span>❤️</span><span>♡</span>
+  </div>
+
+  <button class="btn-close rev" style="transition-delay:0.55s" id="btn-final" onclick="clickFinal()">
+    Guardado en el corazón
+  </button>
+</section>
+
+<script>
+  // ── REVEAL ON SCROLL ──
+  const revEls = document.querySelectorAll('.rev,.rev-l,.rev-r');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  revEls.forEach(el => io.observe(el));
+
+  // ── PETALS ──
+  const canvas = document.getElementById('petals-canvas');
+  const PETALS = ['🌸','🌹','✨','🌷','❤️','💕','🌺','🩷'];
+  function spawnPetal() {
+    const el = document.createElement('div');
+    el.className = 'petal';
+    el.textContent = PETALS[Math.floor(Math.random() * PETALS.length)];
+    el.style.cssText = `
+      left: ${Math.random() * 100}%;
+      font-size: ${10 + Math.random() * 14}px;
+      animation-duration: ${11 + Math.random() * 13}s;
+      animation-delay: 0s;
+    `;
+    canvas.appendChild(el);
+    setTimeout(() => el.remove(), 25000);
+  }
+  // Start petals gradually
+  for (let i = 0; i < 12; i++) setTimeout(spawnPetal, i * 900);
+  setInterval(spawnPetal, 2200);
+
+  // ── FINAL BUTTON ──
+  function clickFinal() {
+    const btn = document.getElementById('btn-final');
+    btn.textContent = '❤️  Para siempre';
+    btn.classList.add('done');
+    // burst of petals
+    for (let i = 0; i < 16; i++) setTimeout(spawnPetal, i * 120);
+  }
+</script>
+</body>
+</html>
